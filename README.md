@@ -3,42 +3,36 @@
 
 ### 使用方式：
 
+（下载预测库和模型可参考https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/deploy/cpp_infer/readme_ch.md）
+1. 在当前cpp_infer文件夹中下载Paddle预测库
 
-在当前cpp_infer文件夹下安装Paddle预测库
+    ```shell
+    wget https://paddle-inference-lib.bj.bcebos.com/2.3.2/cxx_c/Linux/CPU/gcc8.2_avx_mkl/paddle_inference.tgz
+    tar -xf paddle_inference.tgz
+    rm paddle_inference.tgz
+    ```
 
-```shell
-wget https://paddle-inference-lib.bj.bcebos.com/2.3.2/cxx_c/Linux/CPU/gcc8.2_avx_mkl/paddle_inference.tgz
-tar -xf paddle_inference.tgz
-rm paddle_inference.tgz
-```
+2. 在/utils/inference/中下载pp-ocr检测和识别模型
 
-在/utils/inference/下下载pp-ocr检测和识别模型
+    ```shell
+    wget https://paddleocr.bj.bcebos.com/PP-OCRv3/english/en_PP-OCRv3_det_infer.tar
+    tar -xf en_PP-OCRv3_det_infer.tar
+    mv en_PP-OCRv3_det_infer.tar det_model
+    rm en_PP-OCRv3_det_infer.tar
 
-```shell
-wget https://paddleocr.bj.bcebos.com/PP-OCRv3/english/en_PP-OCRv3_det_infer.tar
-
-tar -xf en_PP-OCRv3_det_infer.tar
-
-mv en_PP-OCRv3_det_infer.tar det_model
-
-rm en_PP-OCRv3_det_infer.tar
-
-
-wget https://paddleocr.bj.bcebos.com/PP-OCRv3/english/en_PP-OCRv3_rec_infer.tar
-
-tar -xf en_PP-OCRv3_rec_infer.tar
-
-mv en_PP-OCRv3_rec_infer.tar rec_model
-
-rm en_PP-OCRv3_rec_infer.tar
-```
+    wget https://paddleocr.bj.bcebos.com/PP-OCRv3/english/en_PP-OCRv3_rec_infer.tar
+    tar -xf en_PP-OCRv3_rec_infer.tar
+    mv en_PP-OCRv3_rec_infer.tar rec_model
+    rm en_PP-OCRv3_rec_infer.tar
+    ```
 
 
+3. 编译并运行
 
-```shell
-sudo sh build.sh
-sh run.sh
-```
+    ```shell
+    sudo sh build.sh
+    sh run.sh
+    ```
 
 
 ### 注意事项：
