@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/CMakeFiles/extern_autolog-populate"
+		},
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/CMakeFiles/extern_autolog-populate.rule"
+		},
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/CMakeFiles/extern_autolog-populate-complete.rule"
+		},
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/autolog/src/extern_autolog-populate-stamp/extern_autolog-populate-build.rule"
+		},
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/autolog/src/extern_autolog-populate-stamp/extern_autolog-populate-configure.rule"
+		},
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/autolog/src/extern_autolog-populate-stamp/extern_autolog-populate-download.rule"
+		},
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/autolog/src/extern_autolog-populate-stamp/extern_autolog-populate-install.rule"
+		},
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/autolog/src/extern_autolog-populate-stamp/extern_autolog-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/autolog/src/extern_autolog-populate-stamp/extern_autolog-populate-patch.rule"
+		},
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/autolog/src/extern_autolog-populate-stamp/extern_autolog-populate-test.rule"
+		},
+		{
+			"file" : "/home/zjl/123/cpp_infer/build/third-party/extern_autolog-subbuild/autolog/src/extern_autolog-populate-stamp/extern_autolog-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"extern_autolog-populate"
+		],
+		"name" : "extern_autolog-populate"
+	}
+}
