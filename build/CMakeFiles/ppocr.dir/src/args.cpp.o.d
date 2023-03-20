@@ -136,4 +136,5 @@ CMakeFiles/ppocr.dir/src/args.cpp.o: /home/zjl/123/cpp_infer/src/args.cpp \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
  /home/zjl/123/cpp_infer/paddle_inference/third_party/install/gflags/include/gflags/gflags_declare.h \
- /home/zjl/123/cpp_infer/paddle_inference/third_party/install/gflags/include/gflags/gflags_gflags.h
+ /home/zjl/123/cpp_infer/paddle_inference/third_party/install/gflags/include/gflags/gflags_gflags.h \
+ /home/zjl/123/cpp_infer/include/args.h

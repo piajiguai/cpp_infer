@@ -166,17 +166,17 @@ void structure(std::vector<cv::String> &cv_all_img_names) {
 int main(int argc, char **argv) {
   // Parsing command-line
   google::ParseCommandLineFlags(&argc, &argv, true);
-  check_params();
+  //  check_params();
 
-  if (!Utility::PathExists(FLAGS_image_dir)) {
-    std::cerr << "[ERROR] image path not exist! image_dir: " << FLAGS_image_dir
+  std::string pic_dir = cur_dir + std::string("utils/img/unspined/new_origin4.jpg");   //输入标签图像地址
+  if (!Utility::PathExists(pic_dir)) {
+    std::cerr << "[ERROR] image path not exist! image_dir: " << pic_dir
               << std::endl;
     exit(1);
   }
 
-  std::string pic_dir = "/home/zjl/123/cpp_infer/utils/img/unspined/new_origin4.jpg";   //输入图像
-  cv::String spined_1_path = "/home/zjl/123/cpp_infer/utils/img/output/spined_1.png";  //旋转后保存路径1
-  cv::String spined_2_path = "/home/zjl/123/cpp_infer/utils/img/output/spined_2.png";  //旋转后保存路径2
+  cv::String spined_1_path = cur_dir + std::string("utils/img/tmp/spined_1.png");  //旋转后保存路径1
+  cv::String spined_2_path = cur_dir + std::string("utils/img/tmp/spined_2.png");  //旋转后保存路径2
 
   cv::Mat binary = two_valuing(pic_dir, thresh);
   cv::Mat img1, img2;

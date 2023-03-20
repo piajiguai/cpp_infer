@@ -15,6 +15,7 @@
 #pragma once
 
 #include <gflags/gflags.h>
+#define cur_dir "/home/zjl/123/cpp_infer/"
 
 // common args
 DECLARE_bool(use_gpu);
