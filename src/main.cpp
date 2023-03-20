@@ -192,7 +192,20 @@ int main(int argc, char **argv) {
 
   std::vector<std::pair<std::string, double>> outputs = ocr(cv_all_img_names);
   std::string ret = outputs[0].second > outputs[1].second ? outputs[0].first : outputs[1].first;
-  cout << ret << endl;
+  
+
+  if (ret.size() > 8) {
+  cout << "Oops! The num of output string is over 8!" << endl;
+  ret = string(ret.begin(), ret.begin() + 8);
+	}
+
+
+  int a[8];
+  str2array(a, ret);
+	for (int i=0; i<8; i++) 
+	{
+		cout << a[i] << " ";
+	}
 
   return 0;
 }

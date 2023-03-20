@@ -1,5 +1,0 @@
-/home/zjl/123/cpp_infer/build/CMakeFiles/ppocr.dir
-/home/zjl/123/cpp_infer/build/CMakeFiles/edit_cache.dir
-/home/zjl/123/cpp_infer/build/CMakeFiles/rebuild_cache.dir
-/home/zjl/123/cpp_infer/build/third-party/extern_autolog-build/CMakeFiles/edit_cache.dir
-/home/zjl/123/cpp_infer/build/third-party/extern_autolog-build/CMakeFiles/rebuild_cache.dir

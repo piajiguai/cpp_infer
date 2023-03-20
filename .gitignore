@@ -1,4 +1,5 @@
 paddle_inference/
+build/
 *.pdiparams
 *.pdmodel
 *.info
