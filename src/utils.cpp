@@ -23,6 +23,15 @@ using cv::Rect;
 using cv::Point;
 
 
+cv::Mat two_valuing(const cv::Mat &img, const int thresh)
+{
+    cv::Mat grey, result;
+
+    cv::cvtColor(img, grey, cv::COLOR_BGR2GRAY);
+    cv::threshold(grey, result, thresh, 255, cv::THRESH_BINARY);
+    return result; 
+}
+
 cv::Mat two_valuing(const string &pic_dir, const int thresh)
 {
     cv::Mat src=cv::imread(pic_dir);
@@ -288,9 +297,10 @@ map<string, int> str2int_map = {
     {">", 28}, {"W", 29}, {"X", 30}, {"Y", 31}
 };
 
-void str2array(int *a, string output) {
+vector<int> str2array(string output) {
+    vector<int> a;
     for (auto i = 0; i < 8; i++) {
-        a[i] = -1;
+        a.push_back(-1);
     }
 
     int idx = 0;
@@ -299,5 +309,5 @@ void str2array(int *a, string output) {
         a[idx] = str2int_map[cur];
         idx++;
     }
-
+    return a;
 }
