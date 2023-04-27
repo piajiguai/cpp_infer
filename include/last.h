@@ -13,4 +13,4 @@
 const int thresh = 210;
 
 std::vector<std::pair<std::string, double>> ocr(std::vector<cv::String> &cv_all_img_names);
-std::vector<int> lt666(const cv::Mat &title);
+std::string cap2str(cv::Mat cap);

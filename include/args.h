@@ -15,9 +15,12 @@
 #pragma once
 
 #include <gflags/gflags.h>
-#define cur_dir "/home/zjl/123/cpp_infer/"
+// #define cur_dir "/home/zjl/danger_bottle/cpp_infer/"
 
 // common args
+DECLARE_string(cur_dir);
+DECLARE_string(left_img_path);
+DECLARE_string(right_img_path);
 DECLARE_bool(use_gpu);
 DECLARE_bool(use_tensorrt);
 DECLARE_int32(gpu_id);

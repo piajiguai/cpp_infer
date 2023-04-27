@@ -111,9 +111,9 @@ void spin(const cv::Mat &binary, cv::Mat &spined_img_1, cv::Mat &spined_img_2)
     cv::HoughLines(edges, lines, 1, CV_PI / 180, 0);
     if (lines.size() == 0) 
     {
-        std::cout << "Error!!!" << std::endl;
-        std::cout << "Hough transform can't get any lines from the picture!" << std::endl;
-        std::cout << "Orientation correction not possible!" << std::endl;
+        // std::cout << "Error!!!" << std::endl;
+        // std::cout << "Hough transform can't get any lines from the picture!" << std::endl;
+        // std::cout << "Orientation correction not possible!" << std::endl;
         return;
     }
 

@@ -1,4 +1,4 @@
-project(ppocr CXX C)
+project(run CXX C)
 cmake_minimum_required(VERSION 3.14)
 
 option(WITH_MKL        "Compile demo with MKL/OpenBlas support, default use MKL."       ON)
@@ -12,7 +12,7 @@ SET(CUDA_LIB "" CACHE PATH "Location of libraries")
 SET(CUDNN_LIB "" CACHE PATH "Location of libraries")
 SET(TENSORRT_DIR "" CACHE PATH "Compile demo with TensorRT")
 
-set(DEMO_NAME "ppocr")
+set(DEMO_NAME "run")
 
 
 macro(safe_set_static_flag)
@@ -28,7 +28,7 @@ endmacro()
 ADD_DEFINITIONS(-DUSE_MKL)
 
 
-set(OpenCV_DIR /home/zjl/opt/opencv/opencv-4.5.4/build)
+set(OpenCV_DIR /download/opencv-4.5.3/build)
 find_package( OpenCV  REQUIRED )
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 include_directories("${PADDLE_LIB}/paddle/include")

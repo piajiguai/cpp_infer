@@ -59,15 +59,16 @@ std::vector<std::pair<std::string, double>> ocr(std::vector<cv::String> &cv_all_
   return outputs;
 }
 
+std::string cap2str(cv::Mat cap) {
+  cv::String spined_1_path = FLAGS_cur_dir + std::string("utils/img/tmp/spined_1.png");  //旋转后保存路径1
+  cv::String spined_2_path = FLAGS_cur_dir + std::string("utils/img/tmp/spined_2.png");  //旋转后保存路径2
 
-std::vector<int> lt666(const cv::Mat &title) {
-
-  cv::String spined_1_path = cur_dir + std::string("utils/img/tmp/spined_1.png");  //旋转后保存路径1
-  cv::String spined_2_path = cur_dir + std::string("utils/img/tmp/spined_2.png");  //旋转后保存路径2
-
-  cv::Mat binary = two_valuing(title, thresh);
+  cv::Mat binary = two_valuing(cap, thresh); 
   cv::Mat img1, img2;
   spin(binary, img1, img2);
+
+//  cv::cvtColor(img1, img1, cv::COLOR_GRAY2BGR);
+//  cv::cvtColor(img2, img2, cv::COLOR_GRAY2BGR); 
 
   cv::imwrite(spined_1_path, img1);
   cv::imwrite(spined_2_path, img2);
@@ -75,17 +76,18 @@ std::vector<int> lt666(const cv::Mat &title) {
   std::vector<cv::String> cv_all_img_names;
   cv_all_img_names.push_back(spined_1_path);
   cv_all_img_names.push_back(spined_2_path);
-  // cv::glob(FLAGS_image_dir, cv_all_img_names);
 
+  
   std::vector<std::pair<std::string, double>> outputs = ocr(cv_all_img_names);
   std::string ret = outputs[0].second > outputs[1].second ? outputs[0].first : outputs[1].first;
-  
-
   if (ret.size() > 8) {
-  cout << "Oops! The num of output string is over 8!" << endl;
-  ret = string(ret.begin(), ret.begin() + 8);
+    cout << "Oops! The num of output string is over 8!" << endl;
+    ret = string(ret.begin(), ret.begin() + 8);
 	}
+  std::transform(ret.begin(), ret.end(), ret.begin(), [](char const &c) {
+                    return std::toupper(c);
+                });
 
-  vector<int> ans = str2array(ret);
-  return ans;
+  return ret;
 }
+

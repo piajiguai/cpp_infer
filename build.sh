@@ -1,5 +1,5 @@
-OPENCV_DIR=/home/zjl/opt/opencv/opencv-4.5.4/build
-LIB_DIR=/home/zjl/123/cpp_infer/paddle_inference
+OPENCV_DIR=/download/opencv-4.5.3/build
+LIB_DIR=/cpp_infer/paddle_inference
 # CUDA_LIB_DIR=your_cuda_lib_dir
 # CUDNN_LIB_DIR=your_cudnn_lib_dir
 
