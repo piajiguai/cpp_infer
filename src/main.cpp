@@ -83,8 +83,16 @@ vector<MyData> circle_detector(string path_left, string path_right, PPOCR &ocr_m
             Rect roi(int(a - r / 2) - 26, int(b - r / 2) - 26, r + 52, r + 52);
             Mat cropped = img_right(roi);
             // string cur_string = "kkkkkkkk";
-            
-            string cur_string = cap2str(cropped, ocr_model);
+            string cur_string;
+	    try{
+                cur_string = cap2str(cropped, ocr_model);
+                       
+            }
+            catch(...){
+                std::cerr << "Warning: occors in function cap2str()" << std::endl;           
+                continue;
+            }
+           
             record.insert(cur_string);
             Point2d real_xy = calculate_XYZ(b,a);
             MyData cur_circle;
