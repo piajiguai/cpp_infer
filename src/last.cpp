@@ -20,18 +20,16 @@
 
 #include <include/args.h>
 #include <include/paddleocr.h>
-#include <include/paddlestructure.h>
 #include <include/utils.h>
 #include <include/last.h>
 
 using namespace PaddleOCR;
 
 
-std::vector<std::pair<std::string, double>> ocr(std::vector<cv::String> &cv_all_img_names) {
-  PPOCR ocr = PPOCR();
+std::vector<std::pair<std::string, double>> ocr(std::vector<cv::String> &cv_all_img_names, PPOCR &ocr_model) {
 
   if (FLAGS_benchmark) {
-    ocr.reset_timer();
+    ocr_model.reset_timer();
   }
   
   std::vector<cv::Mat> img_list;
@@ -48,7 +46,7 @@ std::vector<std::pair<std::string, double>> ocr(std::vector<cv::String> &cv_all_
   }
 
   std::vector<std::vector<OCRPredictResult>> ocr_results =
-      ocr.ocr(img_list, FLAGS_det, FLAGS_rec, FLAGS_cls);
+      ocr_model.ocr(img_list, FLAGS_det, FLAGS_rec, FLAGS_cls);
 
   std::vector<std::pair<std::string, double>> outputs;
   for (int i = 0; i < img_names.size(); ++i) {
@@ -59,7 +57,7 @@ std::vector<std::pair<std::string, double>> ocr(std::vector<cv::String> &cv_all_
   return outputs;
 }
 
-std::string cap2str(cv::Mat cap) {
+std::string cap2str(cv::Mat cap, PPOCR &ocr_model) {
   cv::String spined_1_path = FLAGS_cur_dir + std::string("utils/img/tmp/spined_1.png");  //旋转后保存路径1
   cv::String spined_2_path = FLAGS_cur_dir + std::string("utils/img/tmp/spined_2.png");  //旋转后保存路径2
 
@@ -78,7 +76,7 @@ std::string cap2str(cv::Mat cap) {
   cv_all_img_names.push_back(spined_2_path);
 
   
-  std::vector<std::pair<std::string, double>> outputs = ocr(cv_all_img_names);
+  std::vector<std::pair<std::string, double>> outputs = ocr(cv_all_img_names, ocr_model);
   std::string ret = outputs[0].second > outputs[1].second ? outputs[0].first : outputs[1].first;
   if (ret.size() > 8) {
     cout << "Oops! The num of output string is over 8!" << endl;

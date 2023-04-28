@@ -7,10 +7,9 @@
 
 #include <include/args.h>
 #include <include/paddleocr.h>
-#include <include/paddlestructure.h>
 #include <include/utils.h>
 
 const int thresh = 210;
 
-std::vector<std::pair<std::string, double>> ocr(std::vector<cv::String> &cv_all_img_names);
-std::string cap2str(cv::Mat cap);
+std::vector<std::pair<std::string, double>> ocr(std::vector<cv::String> &cv_all_img_names, PaddleOCR::PPOCR &ocr_model);
+std::string cap2str(cv::Mat cap, PaddleOCR::PPOCR &ocr_model);

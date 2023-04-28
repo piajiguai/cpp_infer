@@ -2,9 +2,11 @@
 #include <opencv2/opencv.hpp>
 #include "include/last.h"
 #include <include/args.h>
+#include <include/paddleocr.h>
 
 using namespace std;
 using namespace cv;
+using namespace PaddleOCR;
 
 float scalingfactor = 138.28;
 
@@ -61,7 +63,7 @@ vector<Vec3f> circle_help(Mat img) {
 
 //string zifu()
 
-vector<MyData> circle_detector(string path_left, string path_right) {
+vector<MyData> circle_detector(string path_left, string path_right, PPOCR &ocr_model) {
     Mat img_left = imread(path_left, 1);
     Mat img_right = imread(path_right, 1);
 
@@ -82,7 +84,7 @@ vector<MyData> circle_detector(string path_left, string path_right) {
             Mat cropped = img_right(roi);
             // string cur_string = "kkkkkkkk";
             
-            string cur_string = cap2str(cropped);
+            string cur_string = cap2str(cropped, ocr_model);
             record.insert(cur_string);
             Point2d real_xy = calculate_XYZ(b,a);
             MyData cur_circle;
@@ -104,7 +106,7 @@ vector<MyData> circle_detector(string path_left, string path_right) {
             // string cur_string = "kkkkkk";
             string cur_string;
             try{
-                cur_string = cap2str(cropped);
+                cur_string = cap2str(cropped, ocr_model);
                        
             }
             catch(...){
@@ -137,7 +139,9 @@ int main(int argc, char **argv) {
 
     string left_img = FLAGS_left_img_path;
     string right_img = FLAGS_right_img_path;
-    vector<MyData> circles = circle_detector(left_img, right_img);
+    PPOCR ocr_model = PPOCR();
+
+    vector<MyData> circles = circle_detector(left_img, right_img, ocr_model);
     
     for (MyData item : circles) {
         cout << "output: " <<item.num << " (" << round(item.myPoint.x) << ", " << round(item.myPoint.y) << ") " << item.myString<<endl;
