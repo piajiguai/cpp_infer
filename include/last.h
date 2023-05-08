@@ -11,5 +11,5 @@
 
 const int thresh = 210;
 
-std::vector<std::pair<std::string, double>> ocr(std::vector<cv::String> &cv_all_img_names, PaddleOCR::PPOCR &ocr_model);
+std::vector<std::pair<std::string, double>> ocr(std::vector<cv::Mat> &cv_all_imgs, PaddleOCR::PPOCR &ocr_model);
 std::string cap2str(cv::Mat cap, PaddleOCR::PPOCR &ocr_model);
