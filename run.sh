@@ -10,5 +10,5 @@ export LD_LIBRARY_PATH=/install/lib/:$LD_LIBRARY_PATH
 
 ./build/run \
   --cur_dir=${cur_dir} \
-  --left_img_path=/cpp_infer/utils/img/left.jpg \
-  --right_img_path=/cpp_infer/utils/img/right.jpg 
+  --img_path=/cpp_infer/utils/img/one_img.jpg 
+

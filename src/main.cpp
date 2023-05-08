@@ -8,18 +8,18 @@ using namespace std;
 using namespace cv;
 using namespace PaddleOCR;
 
-float scalingfactor = 138.28;
+float scalingfactor = -89.400604;
 
-Mat newcam_mtx = (Mat_<double>(3, 3) << 2.63797676e+04, 0.00000000e+00, 1.04655382e+03,
-    0.00000000e+00, 2.41409961e+04, 1.20918688e+03,
-    0.00000000e+00, 0.00000000e+00, 1.00000000e+00);
+Mat newcam_mtx = (Mat_<double>(3,3) << 1.23274580e+04, 0.00000000e+00, 1.25236768e+03,
+                  0.00000000e+00, 1.10874355e+04, 9.23223976e+02,
+                  0.00000000e+00, 0.00000000e+00, 1.00000000e+00);
 Mat inverse_newcam_mtx = newcam_mtx.inv();
 
-Mat tvec1 = (Mat_<double>(3, 1) << 6.96596514, 3.19605319, 143.59501265);
+Mat tvec1 = (Mat_<double>(3,1) << 10.16173016, 5.36255966, -91.67960961);
 
-Mat R_mtx = (Mat_<double>(3, 3) << -0.12765192, -0.88343605, -0.45082783,
-    -0.97731071, 0.03457677, 0.20896941,
-    -0.16902294, 0.46727421, -0.86780531);
+Mat R_mtx = (Mat_<double>(3,3) << -0.90037802, 0.00690048, -0.4350538,
+             0.02249729, -0.99779849, -0.06238619,
+             -0.43452653, -0.06595869, 0.89824059);
 Mat inverse_R_mtx = R_mtx.inv();
 
 vector<pair<int, Point2d>> result;
@@ -40,13 +40,11 @@ Point2d calculate_XYZ(double u, double v) {
     return point_xyz;
 }
 
-
-
 vector<Vec3f> circle_help(Mat img) {
     Mat hsv;
     cvtColor(img, hsv, COLOR_BGR2HSV);
-    Scalar lower_white = Scalar(0, 0, 221);
-    Scalar higher_white = Scalar(180, 150, 255);
+    Scalar lower_white = Scalar(0, 28, 230);
+    Scalar higher_white = Scalar(150, 150, 260);
     Mat mask;
     inRange(hsv, lower_white, higher_white, mask);
     Mat white;
@@ -61,32 +59,26 @@ vector<Vec3f> circle_help(Mat img) {
 
 }
 
-//string zifu()
-
-vector<MyData> circle_detector(string path_left, string path_right, PPOCR &ocr_model) {
-    Mat img_left = imread(path_left, 1);
-    Mat img_right = imread(path_right, 1);
+vector<MyData> circle_detector(string path_one_img, PPOCR &ocr_model) {
+    Mat img_left = imread(path_one_img, 1);
 
     vector<Vec3f> circles_left;
-    vector<Vec3f> circles_right;
     circles_left = circle_help(img_left);
-    circles_right = circle_help(img_right);
 
     //vector<pair<int, Point2d>> record;
     vector<MyData> result;
     std::set<string> record;
-    if (!circles_right.empty()) {
-        for (size_t i = 0; i < circles_right.size(); i++) {
-            int a = cvRound(circles_right[i][0]);
-            int b = cvRound(circles_right[i][1]);
-            int r = cvRound(circles_right[i][2]);
-            Rect roi(int(a - r / 2) - 26, int(b - r / 2) - 26, r + 52, r + 52);
-            Mat cropped = img_right(roi);
-            // string cur_string = "kkkkkkkk";
+    if (!circles_left.empty()) {
+        for (size_t i = 0; i < circles_left.size(); i++) {
+            int a = cvRound(circles_left[i][0]);
+            int b = cvRound(circles_left[i][1]);
+            int r = cvRound(circles_left[i][2]);
+            Rect roi(int(a - r / 2) - 28, int(b - r / 2) - 28, r + 56, r + 56);
+            Mat cropped = img_left(roi);
             string cur_string;
+
 	    try{
                 cur_string = cap2str(cropped, ocr_model);
-                       
             }
             catch(...){
                 std::cerr << "Warning: occors in function cap2str()" << std::endl;           
@@ -94,62 +86,25 @@ vector<MyData> circle_detector(string path_left, string path_right, PPOCR &ocr_m
             }
            
             record.insert(cur_string);
-            Point2d real_xy = calculate_XYZ(b,a);
-            MyData cur_circle;
+            Point2d real_xy = calculate_XYZ(a, b);
+	    MyData cur_circle;
             cur_circle.num = i;
             cur_circle.myPoint = real_xy;
             cur_circle.myString = cur_string;
-            /*cur_char.copy(cur_circle.myString, sizeof(cur_circle.myString));*/
-
             result.push_back(cur_circle);
         }
     }
-    if (!circles_left.empty()) {
-        for (size_t i = 0; i < circles_left.size(); i++) {
-            int a = cvRound(circles_left[i][0]);
-            int b = cvRound(circles_left[i][1]);
-            int r = cvRound(circles_left[i][2]);
-            Rect roi(int(a - r / 2) - 30, int(b - r / 2) - 30, r + 60, r + 60);
-            Mat cropped = img_left(roi);
-            // string cur_string = "kkkkkk";
-            string cur_string;
-            try{
-                cur_string = cap2str(cropped, ocr_model);
-                       
-            }
-            catch(...){
-                std::cerr << "Warning: occors in function cap2str()" << std::endl;           
-                continue;
-            }
-            std::set<string>::iterator it;
-            it = record.find(cur_string);
 
-            if (it == record.end()) {
-                Point2d real_xy = calculate_XYZ(b, a);
-                real_xy.x = real_xy.x + 9;
-                MyData cur_circle;
-                cur_circle.num = record.size();
-                cur_circle.myPoint = real_xy;
-                cur_circle.myString = cur_string;
-                record.insert(cur_string);
-                result.push_back(cur_circle);       
-            }
-        }
-
-    }
-    
-    
     return result;
 }
 
 int main(int argc, char **argv) {
     google::ParseCommandLineFlags(&argc, &argv, true);
 
-    string left_img = FLAGS_left_img_path;
-    string right_img = FLAGS_right_img_path;
+    string one_img = FLAGS_img_path;
     PPOCR ocr_model = PPOCR();
 
-    vector<MyData> circles = circle_detector(left_img, right_img, ocr_model);
+    vector<MyData> circles = circle_detector(one_img, ocr_model);
     
     for (MyData item : circles) {
         cout << "output: " <<item.num << " (" << round(item.myPoint.x) << ", " << round(item.myPoint.y) << ") " << item.myString<<endl;

@@ -17,8 +17,7 @@
 
 // common args
 DEFINE_string(cur_dir, "", "current directory");
-DEFINE_string(left_img_path, "", "path of left image");
-DEFINE_string(right_img_path, "", "path of right image");
+DEFINE_string(img_path, "", "path of input image");
 DEFINE_bool(use_gpu, false, "Infering with GPU or CPU.");
 DEFINE_bool(use_tensorrt, false, "Whether use tensorrt.");
 DEFINE_int32(gpu_id, 0, "Device id of GPU to execute.");

@@ -58,12 +58,14 @@ std::vector<std::pair<std::string, double>> ocr(std::vector<cv::String> &cv_all_
 }
 
 std::string cap2str(cv::Mat cap, PPOCR &ocr_model) {
-  cv::String spined_1_path = FLAGS_cur_dir + std::string("utils/img/tmp/spined_1.png");  //旋转后保存路径1
-  cv::String spined_2_path = FLAGS_cur_dir + std::string("utils/img/tmp/spined_2.png");  //旋转后保存路径2
-
+  cv::String spined_1_path = FLAGS_cur_dir + std::string("utils/img/tmp/spined_1.png");  
+  cv::String spined_2_path = FLAGS_cur_dir + std::string("utils/img/tmp/spined_2.png"); 
   cv::Mat binary = two_valuing(cap, thresh); 
+
   cv::Mat img1, img2;
-  spin(binary, img1, img2);
+  double rotate_angle = get_spin_angle(binary);
+  rotateImage(cap, img1, rotate_angle, 0);
+  rotateImage(cap, img2, rotate_angle + 180, 0);
 
 //  cv::cvtColor(img1, img1, cv::COLOR_GRAY2BGR);
 //  cv::cvtColor(img2, img2, cv::COLOR_GRAY2BGR); 

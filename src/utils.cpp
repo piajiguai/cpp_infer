@@ -102,11 +102,10 @@ int rotateImage(const cv::Mat &src, cv::Mat &dst, const double angle, const int 
 }
 
 
-void spin(const cv::Mat &binary, cv::Mat &spined_img_1, cv::Mat &spined_img_2)
+double get_spin_angle(const cv::Mat &binary)
 {
     cv::Mat edges;
-    vector<cv::Vec2f> lines;//用于储存参数空间的交点
-
+    vector<cv::Vec2f> lines;
     cv::Canny(binary, edges, 50, 150, 3); //void Canny(image, edges, threshold1, threshold2, apertureSize)
     cv::HoughLines(edges, lines, 1, CV_PI / 180, 0);
     if (lines.size() == 0) 
@@ -114,7 +113,7 @@ void spin(const cv::Mat &binary, cv::Mat &spined_img_1, cv::Mat &spined_img_2)
         // std::cout << "Error!!!" << std::endl;
         // std::cout << "Hough transform can't get any lines from the picture!" << std::endl;
         // std::cout << "Orientation correction not possible!" << std::endl;
-        return;
+        return 0;
     }
 
     float rho = lines[0][0], theta = lines[0][1];
@@ -127,8 +126,7 @@ void spin(const cv::Mat &binary, cv::Mat &spined_img_1, cv::Mat &spined_img_2)
     double rotate_radian = atan2(y2 - y1, x2 - x1);
     double rotate_angle = rotate_radian * 180 / PI;
 
-    rotateImage(binary, spined_img_1, rotate_angle, 0);
-    rotateImage(binary, spined_img_2, rotate_angle + 180, 0);
+    return rotate_angle;
 
 }
 
