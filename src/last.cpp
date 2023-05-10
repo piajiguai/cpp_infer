@@ -50,19 +50,13 @@ std::string cap2str(cv::Mat cap, PPOCR &ocr_model) {
 //  cv::String spined_2_path = FLAGS_cur_dir + std::string("utils/img/tmp/spined_2.png"); 
   cv::Mat binary = two_valuing(cap, thresh); 
 
-  cv::Mat img1, img2, img3, img4;
+  cv::Mat img1, img2;
   double rotate_angle = get_spin_angle(binary);
   rotateImage(cap, img1, rotate_angle, 0);
   rotateImage(cap, img2, rotate_angle + 180, 0);
 
-  rotateImage(cap, img3, rotate_angle + 90, 0);
-  rotateImage(cap, img4, rotate_angle + 270, 0);
-
 //  cv::cvtColor(img1, img1, cv::COLOR_GRAY2BGR);
 //  cv::cvtColor(img2, img2, cv::COLOR_GRAY2BGR); 
-
-//  cv::imwrite(spined_1_path, img1);
-//  cv::imwrite(spined_2_path, img2);
 
   std::vector<cv::Mat> cv_all_imgs;
   cv_all_imgs.push_back(img1);
