@@ -17,6 +17,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <algorithm>
 
 #include <include/args.h>
 #include <include/paddleocr.h>
@@ -69,9 +70,12 @@ std::string cap2str(cv::Mat cap, PPOCR &ocr_model) {
     cout << "Oops! The num of output string is over 8!" << endl;
     ret = string(ret.begin(), ret.begin() + 8);
 	}
+
   std::transform(ret.begin(), ret.end(), ret.begin(), [](char const &c) {
                     return std::toupper(c);
                 });
+  std::replace(ret.begin(), ret.end(), 'S', '$');
+  std::replace(ret.begin(), ret.end(), 'O', '0');
 
   return ret;
 }
